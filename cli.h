@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include "Student.h"
 
 using namespace std;
@@ -28,52 +29,58 @@ void ShowMenu()
     cout << "0. Выход" << endl;
 }
 
-string ShowStudy(bool isStudy)
-{
-    if (isStudy) {
-        return "учится";
-    } else {
-        return "не учится";
-    }
-}
-
-string ShowSex(Sex sex)
-{
-    switch (sex) {
-        case Male:
-            return "мужской";
-        case Female:
-            return "женский";
-        case Other:
-            return "неопределённый";
-    }
-}
-
-string ShowFaculty(Faculty faculty)
-{
-    switch (faculty) {
-        case SoftDev:
-            return "Разработка ПО";
-        case Design:
-            return "Дизайн";
-    }
-}
-
-string ShowDate(Date date) {
-    string result;
-    result = to_string(date.day) + "." + to_string(date.month) + "." + to_string(date.year);
-    return result;
-}
-
 void ShowStudent(Student student)
 {
     cout << "--- Студент ---" << endl;
     cout << "Имя: " << student.firstName << endl;
     cout << "Фамилия: " << student.lastName << endl;
     cout << "Дата рождения: ";
-    cout << ShowDate(student.birthDay) << endl;
-    cout << "Пол: " << ShowSex(student.sex) << endl;
-    cout << "Факультет: " << ShowFaculty(student.faculty) << endl;
+    cout << student.birthDay.ToString() << endl;
+    cout << "Пол: " << SexToString(student.sex) << endl;
+    cout << "Факультет: " << FacultyToString(student.faculty) << endl;
     cout << "Группа: " << student.group << endl;
-    cout << "Учится? - " << ShowStudy(student.isStudy) << endl;
+    cout << "Учится? - " << student.IsStudyToString() << endl;
+    //TODO переработать вывод на экран
+}
+
+void ShowStudents(vector<Student> students)
+{
+    for (auto student : students) {
+        ShowStudent(student);
+    }
+}
+
+void InsertStudent(vector<Student>& students)
+{
+    Student temp;
+    char sexTemp;
+    char facultyTemp;
+
+    cout << "+++ Ввод данных студента +++" << endl;
+    cout << "Введите имя - "; cin >> temp.firstName;
+    cout << "Введите фамилию - "; cin >> temp.lastName;
+    cout << "Введите дату рождения:" << endl;
+    cout << "год - "; cin >> temp.birthDay.year;
+    cout << "месяц - "; cin >> temp.birthDay.month;
+    cout << "день - "; cin >> temp.birthDay.day;
+    cout << "Введите пол (1 - мужской, 2 - женский) - ";
+    cin >> sexTemp;
+    if (sexTemp == '1') {
+        temp.sex = Sex::Male;
+    } else if (sexTemp == '2') {
+        temp.sex = Sex::Female;
+    } else {
+        temp.sex = Sex::Other;
+    }
+    cout << "Введите факультет (1 - РПО, 2 - Дизайн) - ";
+    cin >> facultyTemp;
+    if (facultyTemp == '1') {
+        temp.faculty = Faculty::SoftDev;
+    } else if (facultyTemp == '2') {
+        temp.faculty = Faculty::Design;
+    }
+    cout << "Введите номер группы - "; cin >> temp.group;
+    temp.isStudy = true;
+
+    students.push_back(temp);
 }

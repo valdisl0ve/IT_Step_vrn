@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Student.h"
 #include "cli.h"
 
@@ -10,6 +11,19 @@ int main()
 
     Welcome();
 
+    Student student;
+    student.firstName = "Andrey";
+    student.lastName = "Starinin";
+    student.sex = Sex::Male;
+    student.birthDay.year = 1986;
+    student.birthDay.month = 2;
+    student.birthDay.day = 18;
+    student.faculty = Faculty::SoftDev;
+    student.group = "RPO";
+    student.isStudy = false;
+
+    vector<Student> students;
+
     int choice;
     bool flagExit = false;
     do {
@@ -19,10 +33,12 @@ int main()
 
         switch (choice) {
             case 1:
+                InsertStudent(students);
                 break;
             case 2:
                 break;
             case 3:
+                ShowStudents(students);
                 break;
             case 4:
                 break;
