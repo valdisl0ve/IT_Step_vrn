@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "Student.h"
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -50,6 +52,34 @@ void ShowStudents(vector<Student> students)
     }
 }
 
+
+
+
+
+void ExportStudent(Student student)
+{
+
+
+    ofstream file_export("export.csv", ios_base::trunc);
+    if (file_export.is_open()) {
+        file_export << student.firstName << ";" << student.lastName << ";" << student.birthDay.year << ";"
+                    << student.birthDay.month << ";" << student.birthDay.day << ";" << student.sex << ";"
+                    << student.faculty << ";" << student.group << endl;
+    }
+    file_export.close();
+
+}
+
+void ExportStudents(vector<Student> students)
+{
+    for (auto student : students) {
+        ExportStudent(student);
+    }
+}
+
+
+
+
 void InsertStudent(vector<Student>& students)
 {
     Student temp;
@@ -84,3 +114,30 @@ void InsertStudent(vector<Student>& students)
 
     students.push_back(temp);
 }
+
+
+
+
+
+
+
+
+void ImportStudent(vector<Student>& students)
+{
+    Student temp;
+    ifstream file_import("import.csv");
+    if (file_import.is_open()) {
+        getline(file_import, temp.firstName, ';');
+        getline(file_import, temp.lastName, ';');
+        getline(file_import, temp.birthDay.year, ';');
+        getline(file_import, temp.birthDay.month, ';');
+        getline(file_import, temp.birthDay.day, ';');
+        getline(file_import, temp.sex, ';');
+        getline(file_import, temp.faculty, ';');
+        getline(file_import, temp.group);
+    }
+
+    file_import.close();
+    students.push_back(temp);
+}
+
