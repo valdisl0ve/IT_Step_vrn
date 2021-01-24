@@ -45,8 +45,10 @@ int main()
             case 5:
                 break;
             case 6:
+                ExportStudents(students);
                 break;
             case 7:
+                ImportStudent(students);
                 break;
             case 0:
                 flagExit = true;
