@@ -48,7 +48,7 @@ void ShowStudent(Student student)
 void ShowStudents(vector<Student> students)
 {
     for (auto student : students) {
-        ShowStudent(student);
+        ShowStudents(student);
     }
 }
 
@@ -60,7 +60,7 @@ void ExportStudent(Student student)
 {
 
 
-    ofstream file_export("export.csv", ios_base::trunc);
+    ofstream file_export("export.csv", ios_base::app);
     if (file_export.is_open()) {
         file_export << student.firstName << ";" << student.lastName << ";" << student.birthDay.year << ";"
                     << student.birthDay.month << ";" << student.birthDay.day << ";" << student.sex << ";"
@@ -116,13 +116,7 @@ void InsertStudent(vector<Student>& students)
 }
 
 
-
-
-
-
-
-
-void ImportStudent(vector<Student>& students)
+void ImportStudents(vector<Student>& students)
 {
     Student temp;
     ifstream file_import("import.csv");
